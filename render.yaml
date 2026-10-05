@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: taskflow-pro-backend
+    runtime: docker
+    plan: free
+    region: ohio
+    envVars:
+      - key: APP_NAME
+        value: "Taskflow Pro"
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_DEBUG
+        value: false
+      - key: APP_URL
+        value: "https://taskflow-pro-backend.onrender.com" 
+      - key: LOG_CHANNEL
+        value: stderr
+      
+      # ==== CONEXIÓN A BASE DE DATOS (NEON) ====
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DATABASE_URL
+        # Reemplazar este valor en el Dashboard de Render con el connection string de Neon
+        # ej: postgres://usuario:password@ep-midominio.us-east-2.aws.neon.tech/neondb
+        value: "ingresa_tu_url_de_neon_aqui"
+      
+      # ==== VARIABLES PARA EL FRONTEND EN VERCEL ====
+      - key: FRONTEND_URL
+        # Reemplazar con la URL generada por Vercel para tu frontend
+        value: "https://tu-proyecto.vercel.app"
+      - key: SANCTUM_STATEFUL_DOMAINS
+        # Reemplazar con el dominio de Vercel sin "https://"
+        value: "tu-proyecto.vercel.app"
+      - key: SESSION_DOMAIN
+        value: ".onrender.com"
