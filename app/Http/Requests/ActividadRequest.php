@@ -16,7 +16,7 @@ class ActividadRequest extends FormRequest
         return [
             'nombre'       => ['required', 'string', 'min:5', 'max:150'],
             'descripcion'  => ['nullable', 'string', 'max:1000'],
-            'estado'       => ['required', 'in:pendiente,en_proceso,completada'],
+            'estado'       => ['required', 'in:pendiente,proceso,completada'],
             'fecha_inicio' => ['required', 'date'],
             'fecha_fin'    => ['nullable', 'date', 'after_or_equal:fecha_inicio'],
         ];
