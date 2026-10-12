@@ -19,9 +19,14 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [
+        '*',
+        'https://frontend-react-7-team.vercel.app',
+    ],
 
-    'allowed_origins_patterns' => [],
+    'allowed_origins_patterns' => [
+        '#^https:\/\/.*\.vercel\.app$#',
+    ],
 
     'allowed_headers' => ['*'],
 

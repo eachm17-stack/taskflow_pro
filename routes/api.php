@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Auth\Events\Registered;
 use App\Models\User;
-use App\Http\Controllers\ProjectController;
 
 Route::post('/register', function (Request $request) {
     $validated = $request->validate([
@@ -59,8 +58,9 @@ Route::post('/logout', function (Request $request) {
     ], 200);
 });
 
-Route::get('/projects', [ProjectController::class, 'index']);
-Route::post('/projects', [ProjectController::class, 'store']);
-Route::get('/projects/{project}', [ProjectController::class, 'show']);
-Route::put('/projects/{project}', [ProjectController::class, 'update']);
-Route::delete('/projects/{project}', [ProjectController::class, 'destroy']);
+Route::get('/projects', function () {
+    return response()->json([
+        ['id' => 1, 'title' => 'Proyecto TaskSaas Principal', 'status' => 'Activo'],
+        ['id' => 2, 'title' => 'Módulo de Gestión de Tareas', 'status' => 'Activo'],
+    ]);
+});
