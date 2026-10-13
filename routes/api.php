@@ -11,7 +11,7 @@ Route::post('/register', function (Request $request) {
     $validated = $request->validate([
         'name' => ['required', 'string', 'max:255'],
         'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-        'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        'password' => ['required', 'string', 'min:8'],
     ]);
 
     $user = User::create([
@@ -63,4 +63,4 @@ Route::get('/projects', function () {
         ['id' => 1, 'title' => 'Proyecto TaskSaas Principal', 'status' => 'Activo'],
         ['id' => 2, 'title' => 'Módulo de Gestión de Tareas', 'status' => 'Activo'],
     ]);
-});
+});
