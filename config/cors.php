@@ -19,16 +19,18 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [
+    'allowed_origins' => array_values(array_filter([
+        env('FRONTEND_URL'),
         'https://frontend-react-woad-eight.vercel.app',
         'https://frontend-react-7-team.vercel.app',
         'http://localhost:5173',
         'http://127.0.0.1:5173',
-
-    ],
+    ])),
 
     'allowed_origins_patterns' => [
         '#^https:\/\/.*\.vercel\.app$#',
+        '#^http:\/\/localhost(:\d+)?$#',
+        '#^http:\/\/127\.0\.0\.1(:\d+)?$#',
     ],
 
     'allowed_headers' => ['*'],
