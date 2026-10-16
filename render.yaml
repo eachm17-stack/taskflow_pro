@@ -1,9 +1,10 @@
 services:
   - type: web
-    name: taskflow-pro-backend
+    name: laravel-task-api
     runtime: docker
     plan: free
     region: ohio
+    healthCheckPath: /up
     envVars:
       - key: APP_NAME
         value: "Taskflow Pro"
@@ -14,24 +15,35 @@ services:
       - key: APP_DEBUG
         value: false
       - key: APP_URL
-        value: "https://taskflow-pro-backend.onrender.com" 
+        value: "https://laravel-task-api.onrender.com"
       - key: LOG_CHANNEL
         value: stderr
-      
+
+      # ==== SESIÓN / CACHÉ / COLAS ====
+      # Las tablas correspondientes las crean las migraciones.
+      - key: SESSION_DRIVER
+        value: database
+      - key: CACHE_STORE
+        value: database
+      - key: QUEUE_CONNECTION
+        value: database
+
       # ==== CONEXIÓN A BASE DE DATOS (NEON) ====
       - key: DB_CONNECTION
         value: pgsql
+      - key: DB_SSLMODE
+        value: require
+      # Requerida: se completa en el Dashboard de Render al crear el servicio
+      # con el connection string de Neon, ej:
+      # postgres://usuario:password@ep-xxx.us-east-2.aws.neon.tech/neondb?sslmode=require
       - key: DATABASE_URL
-        # Reemplazar este valor en el Dashboard de Render con el connection string de Neon
-        # ej: postgres://usuario:password@ep-midominio.us-east-2.aws.neon.tech/neondb
-        value: "ingresa_tu_url_de_neon_aqui"
-      
+        sync: false
+
       # ==== VARIABLES PARA EL FRONTEND EN VERCEL ====
+      # Requeridas: se completan en el Dashboard de Render.
       - key: FRONTEND_URL
-        # Reemplazar con la URL generada por Vercel para tu frontend
-        value: "https://tu-proyecto.vercel.app"
+        sync: false
       - key: SANCTUM_STATEFUL_DOMAINS
-        # Reemplazar con el dominio de Vercel sin "https://"
-        value: "tu-proyecto.vercel.app"
+        sync: false
       - key: SESSION_DOMAIN
         value: ".onrender.com"
